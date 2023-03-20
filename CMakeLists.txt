@@ -5,6 +5,10 @@ if(BOARD MATCHES "qemu_.*")
   list(APPEND QEMU_EXTRA_FLAGS -serial tcp:127.0.0.1:5678,server)
 endif()
 
+if(BOARD MATCHES "rpi_pico")
+  set(ZENOHPICO_CFLAGS "-DZENOH_NO_STDATOMIC")
+endif()
+
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(zenoh_hello_world)
 
@@ -16,7 +20,7 @@ zephyr_get_include_directories_for_lang_as_string(C ext_includes)
 zephyr_get_compile_definitions_for_lang_as_string(C ext_defs)
 zephyr_get_compile_options_for_lang_as_String(C ext_opts)
 set(ZENOHPICO_CFLAGS
-	"${ext_defs} ${ext_system_includes} ${ext_includes} ${ext_opts}"
+        "${ZENOHPICO_CFLAGS} ${ext_defs} ${ext_system_includes} ${ext_includes} ${ext_opts}"
 )
 
 set(ZENOHPICO_LIB_DIR ${CMAKE_SOURCE_DIR}/build/zenoh-pico-prefix/lib)
