@@ -19,12 +19,12 @@ set(ZENOHPICO_CFLAGS
 	"${ext_defs} ${ext_system_includes} ${ext_includes} ${ext_opts}"
 )
 
-set(ZENOHPICO_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/zenoh-pico-prefix/lib)
-set(ZENOHPICO_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/zenoh-pico-prefix/include)
+set(ZENOHPICO_LIB_DIR ${CMAKE_SOURCE_DIR}/build/zenoh-pico-prefix/lib)
+set(ZENOHPICO_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/build/zenoh-pico-prefix/include)
 
 ExternalProject_Add(zenoh-pico
-  SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/zenoh-pico
-  BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/zenoh-pico
+  GIT_REPOSITORY https://github.com/cguimaraes/zenoh-pico.git
+  GIT_TAG zephyr-module
   BUILD_COMMAND ${CMAKE_COMMAND} --build .
   CMAKE_ARGS
   -DWITH_ZEPHYR=1 -DBUILD_INTEGRATION=OFF -DBUILD_TOOLS=OFF -DBUILD_TESTING=OFF -DBUILD_MULTICAST=OFF
